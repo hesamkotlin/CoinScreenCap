@@ -1,9 +1,12 @@
 package com.example.coinscreencap.di
 
+import android.util.Log
 import com.example.coinscreencap.BuildConfig
 import com.example.coinscreencap.Constants
 import com.example.coinscreencap.data.remote.AuthInterceptor
+import com.example.coinscreencap.data.remote.NetworkDataSource
 import com.example.coinscreencap.data.remote.WebService
+import com.example.coinscreencap.domain.CryptoRepository
 import com.google.gson.GsonBuilder
 import dagger.Module
 import dagger.Provides
@@ -22,7 +25,7 @@ object AppModule {
     ): WebService {
         val gson = GsonBuilder().setLenient().create()
 
-        val httplogger = HttpLoggingInterceptor().apply {
+        val httpLogger = HttpLoggingInterceptor().apply {
             level = if (BuildConfig.DEBUG)
                 HttpLoggingInterceptor.Level.BODY
             else
@@ -30,10 +33,11 @@ object AppModule {
         }
 
         val okHttpClient = OkHttpClient.Builder()
-            .addInterceptor(httplogger)
+            .addInterceptor(httpLogger)
             .addInterceptor(AuthInterceptor())
             .retryOnConnectionFailure(true)
             .build()
+
 
         return Retrofit.Builder()
             .client(okHttpClient)
@@ -42,8 +46,8 @@ object AppModule {
             .build()
             .create(WebService::class.java)
     }
-//
-//    @Provides
-//    fun provideRepository(networkDataSource: NetworkDataSource) = UserRepository(networkDataSource)
+
+    @Provides
+    fun provideRepository(networkDataSource: NetworkDataSource) = CryptoRepository(networkDataSource)
 
 }
