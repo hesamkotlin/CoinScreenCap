@@ -17,7 +17,11 @@ import okhttp3.logging.HttpLoggingInterceptor
 import retrofit2.Retrofit
 import retrofit2.converter.gson.GsonConverterFactory
 
-@Module
+@Module(
+    includes= [
+        DatabaseModule::class
+    ]
+)
 @InstallIn(SingletonComponent::class)
 object AppModule {
     @Provides
