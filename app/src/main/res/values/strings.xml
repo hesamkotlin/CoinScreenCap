@@ -1,0 +1,10 @@
+<resources>
+    <string name="app_name">CoinScreenCap</string>
+    <!-- TODO: Remove or change this placeholder text -->
+    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="mi_nightmode">Night Mode</string>
+    <string name="action_open_drawer">opendrawer</string>
+    <string name="action_close_drawer">closedrawer</string>
+    <string name="home_key">Home</string>
+    <string name="fav_key">Favorites</string>
+</resources>
