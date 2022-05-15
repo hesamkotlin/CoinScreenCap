@@ -16,5 +16,5 @@ data class Crypto(
     val cmcRank: String,
 
     @field:SerializedName("quote")
-    val quote: Usd,
+    val quote: Quote,
 )

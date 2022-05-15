@@ -1,7 +1,7 @@
 package com.example.coinscreencap.shared.model
 
-data class Coins(
-    val id: String?,
+data class Coin(
+    val id: Int,
     val name: String?,
     val symbol: String?,
     val cmcRank: String?,

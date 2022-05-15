@@ -1,12 +1,12 @@
-package com.example.coinscreencap.database
+package com.example.coinscreencap.data.database
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
 @Entity(tableName = "localCoins")
-data class LocalCoins(
-    @PrimaryKey(autoGenerate = true) val id: String,
+data class CoinEntity(
+    @PrimaryKey(autoGenerate = true) val id: Int = 1,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "symbol") val symbol: String,
     @ColumnInfo(name = "cmc_rank") val cmcRank: String,

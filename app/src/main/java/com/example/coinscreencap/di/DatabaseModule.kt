@@ -2,7 +2,7 @@ package com.example.coinscreencap.di
 
 import android.content.Context
 import androidx.room.Room
-import com.example.coinscreencap.database.CoinsDatabase
+import com.example.coinscreencap.data.database.CoinsDatabase
 import dagger.Module
 import dagger.Provides
 import dagger.hilt.InstallIn

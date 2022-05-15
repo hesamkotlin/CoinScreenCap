@@ -51,7 +51,4 @@ object AppModule {
             .create(WebService::class.java)
     }
 
-    @Provides
-    fun provideRepository(networkDataSource: NetworkDataSource) = CryptoRepository(networkDataSource)
-
 }
