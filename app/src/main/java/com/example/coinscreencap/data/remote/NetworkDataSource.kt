@@ -1,6 +1,7 @@
 package com.example.coinscreencap.data.remote
 
 
+import com.example.coinscreencap.Constants
 import com.example.coinscreencap.data.model.Crypto
 import javax.inject.Inject
 
@@ -9,7 +10,7 @@ class NetworkDataSource @Inject constructor(
 ) {
     suspend fun getCryptoList(): Resource<List<Crypto>> {
         return try {
-                val cryptoResponseList = webService.getCryptoModel().data
+                val cryptoResponseList = webService.getCryptoModel(Constants.API_KEY).data
                 Resource.Success(cryptoResponseList)
             } catch (e: Exception) {
                 Resource.Failure(e)

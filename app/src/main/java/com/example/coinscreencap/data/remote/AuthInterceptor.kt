@@ -7,7 +7,7 @@ import okhttp3.Response
 class AuthInterceptor : Interceptor {
      override fun intercept(chain: Interceptor.Chain): Response {
           var request = chain.request()
-          request = request.newBuilder().addHeader(Constants.key,Constants.API_KEY).build()
+          request = request.newBuilder().addHeader(Constants.KEY,Constants.API_KEY).build()
           return chain.proceed(request)
      }
 

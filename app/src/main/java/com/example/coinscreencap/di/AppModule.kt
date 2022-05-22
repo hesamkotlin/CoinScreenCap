@@ -38,7 +38,7 @@ object AppModule {
 
         val okHttpClient = OkHttpClient.Builder()
             .addInterceptor(httpLogger)
-            .addInterceptor(AuthInterceptor())
+//            .addInterceptor(AuthInterceptor())
             .retryOnConnectionFailure(true)
             .build()
 
