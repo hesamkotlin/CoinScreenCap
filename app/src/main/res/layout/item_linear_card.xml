@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="utf-8"?>
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
+
+    <data>
+
+        <variable
+            name="model"
+            type="com.example.coinscreencap.shared.model.Coin" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="12dp">
+
+        <ImageView
+            android:id="@+id/iv_temp"
+            android:layout_width="32dp"
+            android:layout_height="32dp"
+            android:layout_marginStart="22dp"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent"
+            tools:src="@drawable/ic_btc" />
+
+        <TextView
+            android:id="@+id/tv_label"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintStart_toEndOf="@+id/iv_temp"
+            app:layout_constraintTop_toTopOf="@+id/iv_temp"
+            tools:text="Bitcoin" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="14dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+            android:textColor="@color/material_on_surface_disabled"
+            app:layout_constraintStart_toEndOf="@+id/iv_temp"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label"
+            tools:text="BTC" />
+
+        <ImageView
+            android:id="@+id/iv_bookmark"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="22dp"
+            android:src="@drawable/ic_bold_icon_bold_bookmark"
+            app:layout_constraintBottom_toBottomOf="@id/iv_temp"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintTop_toTopOf="@+id/iv_temp" />
+
+        <TextView
+            android:id="@+id/tv_price"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginEnd="8dp"
+            android:textColor="@color/material_on_surface_emphasis_medium"
+            app:layout_constraintEnd_toStartOf="@+id/iv_bookmark"
+            app:layout_constraintTop_toTopOf="@id/iv_temp"
+            tools:text="$29000" />
+
+        <TextView
+            android:id="@+id/change"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textSize="12sp"
+            app:layout_constraintStart_toStartOf="@+id/tv_price"
+            app:layout_constraintTop_toBottomOf="@id/tv_price"
+            tools:text="+2.0%" />
+
+        <View
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/divider"
+            app:layout_constraintEnd_toEndOf="@id/iv_bookmark"
+            app:layout_constraintStart_toStartOf="@id/iv_temp"
+            app:layout_constraintTop_toBottomOf="@+id/iv_temp" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+</layout>
