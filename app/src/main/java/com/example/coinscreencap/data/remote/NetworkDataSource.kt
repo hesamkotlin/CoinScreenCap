@@ -10,7 +10,7 @@ class NetworkDataSource @Inject constructor(
 ) {
     suspend fun getCryptoList(): Resource<List<Crypto>> {
         return try {
-                val cryptoResponseList = webService.getCryptoModel(Constants.API_KEY).data
+                val cryptoResponseList = webService.getCryptoModel(Constants.API_KEY).data.coins
                 Resource.Success(cryptoResponseList)
             } catch (e: Exception) {
                 Resource.Failure(e)

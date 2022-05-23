@@ -29,8 +29,6 @@ class MainActivity : AppCompatActivity() {
         }
         mBinding.viewPager.adapter = adapter
 
-
-
         with(mBinding) {
             viewPager.adapter = adapter
 
@@ -47,8 +45,6 @@ class MainActivity : AppCompatActivity() {
                 tab.text = adapter.getItemTitle(position)
             }.attach()
         }
-
     }
-
 }
 

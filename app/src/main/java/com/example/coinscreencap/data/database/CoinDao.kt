@@ -13,8 +13,8 @@ interface CoinDao {
     @Update
     suspend fun update(coinEntity: CoinEntity)
 
-    @Query("SELECT * FROM local_coins WHERE rank < (:page *:pageSize) & rank > ((:page-1)*:pageSize+1)")
-    suspend fun getCoins(page: Int, pageSize: Int): List<CoinEntity>
+    @Query("SELECT * FROM local_coins")
+    suspend fun getCoins(): List<CoinEntity>
 
 
 }

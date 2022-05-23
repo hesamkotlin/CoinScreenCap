@@ -1,5 +1,6 @@
 package com.example.coinscreencap.data
 
+import android.util.Log
 import androidx.paging.PagingSource
 import androidx.paging.PagingState
 import com.example.coinscreencap.data.database.CoinDao
@@ -18,11 +19,16 @@ class CryptoPagingSource(private val coinDao: CoinDao) : PagingSource<Int, Coin>
         } else {
             params.key ?: 1
         }
-        val coins = coinDao.getCoins(pageNumber, 10)
-        return LoadResult.Page(
-            coins.map { it.mapToCoin() },
-            if (pageNumber > 1) pageNumber - 1 else null,
-            pageNumber + 1
-        )
+        return try {
+            val coins = coinDao.getCoins()
+            LoadResult.Page(
+                coins.map { it.mapToCoin() },
+                if (pageNumber > 1) pageNumber - 1 else null,
+                pageNumber + 1
+            )
+        }catch (e: Exception){
+            Log.d("CryptoPagingSource", e.toString())
+            LoadResult.Error(e)
+        }
     }
 }

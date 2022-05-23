@@ -41,7 +41,9 @@ class MainFragment : Fragment() {
         viewModel.updateCryptos()
         initRecyclerView()
         viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getCoins().collectLatest { coinAdapter.submitData(it) }
+            viewModel.getCoins().collectLatest {
+                coinAdapter.submitData(it)
+            }
         }
     }
     fun initRecyclerView(){

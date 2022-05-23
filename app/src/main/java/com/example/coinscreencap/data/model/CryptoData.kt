@@ -2,9 +2,7 @@ package com.example.coinscreencap.data.model
 
 import com.google.gson.annotations.SerializedName
 
-data class CryptoModel(
-
-    @field:SerializedName("data")
-    val data : CryptoData
-)
-
+data class CryptoData (
+    @field:SerializedName("coins")
+    val coins :List<Crypto>
+        )
