@@ -8,7 +8,7 @@ data class Coin(
     val price: String,
     val vol24h: String,
     val change: String,
-    val color :String,
+    val color :String?,
     val marketCap :String,
     val iconUrl:String,
     val btcPrice:String

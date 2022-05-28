@@ -13,7 +13,7 @@ data class CoinEntity(
     @ColumnInfo(name = "price") val price: String,
     @ColumnInfo(name = "volume_24h") val volume24h: String,
     @ColumnInfo(name = "change") val change: String,
-    @ColumnInfo(name = "color") val color: String,
+    @ColumnInfo(name = "color") val color: String?,
     @ColumnInfo(name = "btcPrice") val btcPrice: String,
     @ColumnInfo(name = "marketCap") val marketCap: String,
     @ColumnInfo(name = "iconUrl") val iconUrl: String,

@@ -7,7 +7,7 @@ data class Crypto(
     val id: String,
 
     @field:SerializedName("color")
-    val color: String,
+    val color: String?,
 
     @field:SerializedName("name")
     val name: String,

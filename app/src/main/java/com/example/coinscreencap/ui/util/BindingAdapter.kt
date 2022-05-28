@@ -10,6 +10,6 @@ import com.bumptech.glide.request.RequestOptions
 fun loadIconToImageView(imageView: ImageView,url:String){
     Glide.with(imageView.context)
         .load(url)
-        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
+        .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE)).override(32,32)
         .into(imageView)
 }

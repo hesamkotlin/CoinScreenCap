@@ -19,7 +19,8 @@ object DatabaseModule {
             context,
             CoinsDatabase::class.java,
             "coins_database.db"
-        ).build()
+        ).fallbackToDestructiveMigration()
+            .build()
     }
 
     @Provides
