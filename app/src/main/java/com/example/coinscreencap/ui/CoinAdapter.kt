@@ -5,13 +5,14 @@ import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
-import androidx.recyclerview.widget.ListAdapter
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinscreencap.R
 import com.example.coinscreencap.databinding.ItemLinearCardBinding
 import com.example.coinscreencap.shared.model.Coin
 
 class CoinAdapter : PagingDataAdapter<Coin, CoinAdapter.CoinViewHolder>(
+
+
     object : DiffUtil.ItemCallback<Coin>() {
         override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean {
             return oldItem.id == newItem.id
@@ -22,15 +23,27 @@ class CoinAdapter : PagingDataAdapter<Coin, CoinAdapter.CoinViewHolder>(
         }
     }
 ) {
+    private lateinit var mOnItemClicked: (String) -> Unit
+
+    fun setOnItemClickListener(onItemClicked: (String) -> Unit) {
+        mOnItemClicked = onItemClicked
+    }
+
     inner class CoinViewHolder(
         private val binding: ItemLinearCardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(coin: Coin) {
             binding.model = coin
         }
+
+        init {
+            itemView.setOnClickListener {
+                mOnItemClicked(getItem(absoluteAdapterPosition)!!.id)
+            }
+        }
     }
 
-    override fun onBindViewHolder(holder: CoinViewHolder , position : Int) {
+    override fun onBindViewHolder(holder: CoinViewHolder, position: Int) {
         getItem(position)?.let { holder.bind(it) }
     }
 

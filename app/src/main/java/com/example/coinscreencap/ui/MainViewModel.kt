@@ -23,7 +23,10 @@ class MainViewModel @Inject constructor(
     private val mCoins = MutableLiveData<List<Coin>>()
     val coin: LiveData<List<Coin>> = mCoins
 
-    fun updateCryptos() {
+    private val mNavigateToDetail = MutableLiveData<String>()
+    val navigateToDetail : LiveData<String> = mNavigateToDetail
+
+   fun updateCryptos() {
         viewModelScope.launch(Dispatchers.IO) {
            val coinResponse =  repository.updateCryptos()
             Log.d("success", coinResponse.toString())
@@ -32,5 +35,8 @@ class MainViewModel @Inject constructor(
 
     fun getCoins(): Flow<PagingData<Coin>> {
         return repository.getCoins().cachedIn(viewModelScope)
+    }
+    fun navigateToDetail(coinID :String){
+        mNavigateToDetail.value=coinID
     }
 }

@@ -7,11 +7,14 @@ import android.view.View
 import android.view.ViewGroup
 import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
+import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinscreencap.databinding.FragmentMainBinding
+import com.example.coinscreencap.shared.model.observe
 import dagger.hilt.android.AndroidEntryPoint
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
+
 
 @AndroidEntryPoint
 class MainFragment : Fragment() {
@@ -44,14 +47,21 @@ class MainFragment : Fragment() {
             viewModel.getCoins().collectLatest {
                 coinAdapter.submitData(it)
             }
+            observe(viewModel.navigateToDetail) { navigateToDetail(it) }
         }
     }
-    fun initRecyclerView(){
+
+    private fun initRecyclerView() {
         mBinding.coinRecycler.apply {
             adapter = coinAdapter
             layoutManager = LinearLayoutManager(requireContext())
-
+            coinAdapter.setOnItemClickListener{ viewModel.navigateToDetail(it) }
         }
+    }
+
+    private fun navigateToDetail(coinId :String) {
+        val navDirection = ContainerFragmentDirections.navigateToDetail(coinId)
+        findNavController().navigate(navDirection)
     }
 }
 

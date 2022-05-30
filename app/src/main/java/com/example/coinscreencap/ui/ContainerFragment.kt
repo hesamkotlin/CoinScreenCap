@@ -34,7 +34,7 @@ class ContainerFragment : Fragment() {
     }
 
     private fun setupViewpagerWithTabLayout() {
-        val adapter = ViewPagerAdapter(parentFragmentManager, lifecycle)
+        val adapter = ViewPagerAdapter(childFragmentManager, lifecycle)
         adapter.apply {
             addFragments(MainFragment(), getString(R.string.home_key))
             addFragments(FavoritesFragment(), getString(R.string.fav_key))
