@@ -43,11 +43,11 @@ class MainFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
         viewModel.updateCryptos()
         initRecyclerView()
+        observe(viewModel.navigateToDetail) { navigateToDetail(it) }
         viewLifecycleOwner.lifecycleScope.launch {
             viewModel.getCoins().collectLatest {
                 coinAdapter.submitData(it)
             }
-            observe(viewModel.navigateToDetail) { navigateToDetail(it) }
         }
     }
 
