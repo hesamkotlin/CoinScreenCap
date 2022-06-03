@@ -4,9 +4,9 @@ import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
 
-@Entity(tableName = "local_coins")
+@Entity(tableName = "local_coins", primaryKeys = ["id", "rank"])
 data class CoinEntity(
-    @PrimaryKey val id :String,
+    val id :String,
     @ColumnInfo(name = "name") val name: String,
     @ColumnInfo(name = "symbol") val symbol: String,
     @ColumnInfo(name = "rank") val rank: Int,

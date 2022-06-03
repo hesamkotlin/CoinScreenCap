@@ -3,6 +3,8 @@ package com.example.coinscreencap.data.utils
 import com.example.coinscreencap.data.database.CoinEntity
 import com.example.coinscreencap.data.model.Crypto
 import com.example.coinscreencap.shared.model.Coin
+import java.math.RoundingMode
+import java.text.DecimalFormat
 
 fun Crypto.mapToCoinEntity(): CoinEntity {
     return CoinEntity(
@@ -21,17 +23,25 @@ fun Crypto.mapToCoinEntity(): CoinEntity {
 }
 
 fun CoinEntity.mapToCoin(): Coin {
+
     return Coin(
         id = id,
         name = name,
         symbol = symbol,
         rank = rank,
-        price = price,
+        price = price.round("#.##"),
         vol24h = volume24h,
-        change = change,
-        btcPrice= btcPrice,
+        change = change.toFloat(),
+        btcPrice = btcPrice.round("#.########"),
         color = color,
         iconUrl = iconUrl,
         marketCap = marketCap
     )
+}
+
+fun String.round(format: String) :String {
+    val df = DecimalFormat(format)
+    df.roundingMode = RoundingMode.DOWN
+    val floatPrice = toFloat()
+    return df.format(floatPrice)
 }

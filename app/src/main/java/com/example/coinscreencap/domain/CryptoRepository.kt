@@ -5,7 +5,6 @@ import androidx.paging.Pager
 import androidx.paging.PagingConfig
 import androidx.paging.PagingData
 import com.example.coinscreencap.data.CryptoPagingSource
-import com.example.coinscreencap.data.database.CoinDao
 import com.example.coinscreencap.data.remote.NetworkDataSource
 import com.example.coinscreencap.data.remote.Resource
 import com.example.coinscreencap.data.database.LocalDataSource
@@ -18,7 +17,6 @@ import javax.inject.Inject
 class CryptoRepository @Inject constructor(
     private val networkDataSource: NetworkDataSource,
     private val localDataSource: LocalDataSource,
-    private val coinDao: CoinDao
 ) {
     suspend fun updateCryptos() {
         val response = networkDataSource.getCryptoList()
@@ -30,13 +28,19 @@ class CryptoRepository @Inject constructor(
         }
     }
 
-    fun getCoins(): Flow<PagingData<Coin>>{
+    suspend fun getCoins(): Flow<PagingData<Coin>>{
+        val maxCount = localDataSource.getAllCoins().count()
         return Pager(
             config = PagingConfig(pageSize = 10),
             pagingSourceFactory = {
-                CryptoPagingSource(coinDao)
+                CryptoPagingSource(localDataSource, maxCount)
             }
         ).flow
+    }
+
+    suspend fun getCoin(coinId: String): Coin {
+        val coinEntity = localDataSource.getCoin(coinId)
+        return coinEntity.mapToCoin()
     }
 
 }
