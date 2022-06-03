@@ -9,6 +9,7 @@ import androidx.paging.PagingData
 import androidx.paging.cachedIn
 import com.example.coinscreencap.domain.CryptoRepository
 import com.example.coinscreencap.shared.model.Coin
+import com.example.coinscreencap.ui.util.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -20,10 +21,8 @@ class MainViewModel @Inject constructor(
     private val repository: CryptoRepository
 ) : ViewModel() {
 
-    private val mCoins = MutableLiveData<List<Coin>>()
-    val coin: LiveData<List<Coin>> = mCoins
 
-    private val mNavigateToDetail = MutableLiveData<String>()
+    private val mNavigateToDetail = LiveEvent<String>()
     val navigateToDetail : LiveData<String> = mNavigateToDetail
 
    fun updateCryptos() {
@@ -33,7 +32,7 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    fun getCoins(): Flow<PagingData<Coin>> {
+    suspend fun getCoins(): Flow<PagingData<Coin>> {
         return repository.getCoins().cachedIn(viewModelScope)
     }
     fun navigateToDetail(coinID :String){

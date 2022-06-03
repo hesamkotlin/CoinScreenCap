@@ -1,14 +1,351 @@
 <?xml version="1.0" encoding="utf-8"?>
-<FrameLayout xmlns:android="http://schemas.android.com/apk/res/android"
-    xmlns:tools="http://schemas.android.com/tools"
-    android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".ui.DetailFragment">
+<layout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <data>
+
+        <import type="com.example.coinscreencap.shared.model.Coin" />
+
+        <variable
+            name="viewModel"
+            type="com.example.coinscreencap.ui.DetailViewModel" />
+
+    </data>
+
+    <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:text="@string/hello_blank_fragment" />
+        android:layout_height="match_parent">
 
-</FrameLayout>
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_left"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintGuide_percent="0.05"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_right"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="vertical"
+            app:layout_constraintEnd_toEndOf="parent"
+            app:layout_constraintGuide_percent="0.95"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <androidx.constraintlayout.widget.Guideline
+            android:id="@+id/guideline_top"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            app:layout_constraintGuide_percent="0.03"
+            app:layout_constraintStart_toStartOf="parent"
+            app:layout_constraintTop_toTopOf="parent" />
+
+        <ImageView
+            android:id="@+id/im_coin"
+            coinIcon="@{viewModel.coin.iconUrl}"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            app:layout_constraintDimensionRatio="h, 1:1"
+            app:layout_constraintStart_toEndOf="@+id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/guideline_top"
+            app:layout_constraintWidth_percent="0.10"
+            tools:src="@drawable/ic_btc" />
+
+        <LinearLayout
+            android:id="@+id/linear1"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="8dp"
+            android:orientation="vertical"
+            app:layout_constraintStart_toEndOf="@+id/im_coin"
+            app:layout_constraintTop_toTopOf="@+id/im_coin">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.coin.name}"
+                android:textAppearance="@style/TextAppearance.MaterialComponents.Subtitle2"
+                tools:text="BitCoin" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.coin.symbol}"
+                tools:text="BTC" />
+        </LinearLayout>
+
+        <LinearLayout
+            android:id="@+id/linear2"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:orientation="vertical"
+
+
+            app:layout_constraintStart_toEndOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/linear1">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@{viewModel.coin.price}"
+                android:textColor="@color/material_on_surface_emphasis_high_type"
+                tools:text="$ 25000" />
+
+            <TextView
+                coinPercentageChangeColor="@{viewModel.coin.change}"
+                coinPercentageSign="@{viewModel.coin.change}"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                tools:text="10.0 %" />
+
+
+        </LinearLayout>
+
+        <ImageView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:src="@drawable/ic_bold_icon_bold_bookmark"
+            app:layout_constraintEnd_toStartOf="@id/guideline_right"
+            app:layout_constraintTop_toBottomOf="@id/guideline_top" />
+
+        <View
+            android:id="@+id/divider_1"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="15dp"
+            android:background="@color/divider"
+            app:layout_constraintEnd_toEndOf="@id/guideline_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/linear2" />
+
+        <TextView
+            android:id="@+id/tv_label"
+            coinDescription="@{viewModel.coin.symbol}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginTop="9dp"
+            android:textAppearance="@style/TextAppearance.MaterialComponents.Headline6"
+            app:layout_constraintStart_toEndOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/divider_1"
+            tools:text="BTC value statistics" />
+        <ImageView
+            android:id="@+id/im_usd_price"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_usd_price"
+            app:layout_constraintDimensionRatio="h , 1:1"
+            app:layout_constraintStart_toEndOf="@+id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/tv_label"
+            app:layout_constraintWidth_percent="0.07" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/usd_price"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintBottom_toBottomOf="@+id/im_usd_price"
+            app:layout_constraintStart_toEndOf="@id/im_usd_price"
+            app:layout_constraintTop_toTopOf="@+id/im_usd_price" />
+
+        <TextView
+            coinDollarSign="@{viewModel.coin.price}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintBottom_toBottomOf="@+id/im_usd_price"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+            app:layout_constraintTop_toTopOf="@+id/im_usd_price"
+            tools:text="25000$" />
+
+        <View
+            android:id="@+id/divider_2"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/divider"
+            app:layout_constraintEnd_toEndOf="@id/guideline_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/im_usd_price" />
+
+
+
+        <ImageView
+            android:id="@+id/im_btc_price"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_btc_price"
+            app:layout_constraintDimensionRatio="h , 1:1"
+            app:layout_constraintStart_toEndOf="@+id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/divider_2"
+            app:layout_constraintWidth_percent="0.07" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/btc_price"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintBottom_toBottomOf="@+id/im_btc_price"
+            app:layout_constraintStart_toEndOf="@id/im_btc_price"
+            app:layout_constraintTop_toTopOf="@+id/im_btc_price" />
+
+        <TextView
+            coinBtcSign="@{viewModel.coin.btcPrice}"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintBottom_toBottomOf="@+id/im_btc_price"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+            app:layout_constraintTop_toTopOf="@+id/im_btc_price"
+            app:layout_constraintVertical_bias="0.6"
+            tools:text="1.00 BTC" />
+
+        <View
+            android:id="@+id/divider_3"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/divider"
+            app:layout_constraintEnd_toEndOf="@id/guideline_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/im_btc_price" />
+
+        <ImageView
+            android:id="@+id/rank"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_rank"
+            app:layout_constraintDimensionRatio="h , 1:1"
+            app:layout_constraintStart_toEndOf="@+id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/divider_3"
+            app:layout_constraintWidth_percent="0.07" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/rank"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintBottom_toBottomOf="@+id/rank"
+            app:layout_constraintStart_toEndOf="@id/rank"
+            app:layout_constraintTop_toTopOf="@+id/rank" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{Integer.toString(viewModel.coin.rank)}"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintBottom_toBottomOf="@+id/rank"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+            app:layout_constraintTop_toTopOf="@+id/rank"
+            tools:text="1" />
+
+        <View
+            android:id="@+id/divider_4"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/divider"
+            app:layout_constraintEnd_toEndOf="@id/guideline_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/rank" />
+
+        <ImageView
+            android:id="@+id/vol_24"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_vol_24"
+            app:layout_constraintDimensionRatio="h , 1:1"
+            app:layout_constraintStart_toEndOf="@+id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/divider_4"
+            app:layout_constraintWidth_percent="0.07" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/vol_24"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintBottom_toBottomOf="@+id/vol_24"
+            app:layout_constraintStart_toEndOf="@id/vol_24"
+            app:layout_constraintTop_toTopOf="@+id/vol_24" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.coin.vol24h}"
+            coinDollarSign="@{viewModel.coin.vol24h}"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintBottom_toBottomOf="@+id/vol_24"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+            app:layout_constraintTop_toTopOf="@+id/vol_24"
+            tools:text="1" />
+
+        <View
+            android:id="@+id/divider_5"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/divider"
+            app:layout_constraintEnd_toEndOf="@id/guideline_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/vol_24" />
+
+        <ImageView
+            android:id="@+id/market_cap"
+            android:layout_width="0dp"
+            android:layout_height="0dp"
+            android:layout_marginTop="5dp"
+            android:src="@drawable/ic_market_cap"
+            app:layout_constraintDimensionRatio="h , 1:1"
+            app:layout_constraintStart_toEndOf="@+id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/divider_5"
+            app:layout_constraintWidth_percent="0.07" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@string/market_cap"
+            android:textAppearance="@style/TextAppearance.AppCompat.Caption"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintBottom_toBottomOf="@+id/market_cap"
+            app:layout_constraintStart_toEndOf="@id/market_cap"
+            app:layout_constraintTop_toTopOf="@+id/market_cap" />
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:text="@{viewModel.coin.marketCap}"
+            coinDollarSign="@{viewModel.coin.marketCap}"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
+            app:layout_constraintBottom_toBottomOf="@+id/market_cap"
+            app:layout_constraintEnd_toStartOf="@+id/guideline_right"
+            app:layout_constraintTop_toTopOf="@+id/market_cap"
+            tools:text="1" />
+
+        <View
+            android:id="@+id/divider_6"
+            android:layout_width="0dp"
+            android:layout_height="1dp"
+            android:layout_marginTop="3dp"
+            android:background="@color/divider"
+            app:layout_constraintEnd_toEndOf="@id/guideline_right"
+            app:layout_constraintStart_toStartOf="@id/guideline_left"
+            app:layout_constraintTop_toBottomOf="@+id/market_cap" />
+
+
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+
+</layout>

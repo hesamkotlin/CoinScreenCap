@@ -65,7 +65,7 @@
             android:layout_height="wrap_content"
             android:layout_marginEnd="8dp"
             android:text="@{model.price}"
-            android:textColor="@color/material_on_surface_emphasis_medium"
+            android:textColor="@color/material_on_surface_emphasis_high_type"
             app:layout_constraintEnd_toStartOf="@+id/iv_bookmark"
             app:layout_constraintTop_toTopOf="@id/iv_temp"
             tools:text="$29000" />
@@ -75,7 +75,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            android:text="@{model.change}"
+            coinPercentageSign="@{model.change}"
+            coinPercentageChangeColor="@{model.change}"
             app:layout_constraintStart_toStartOf="@+id/tv_price"
             app:layout_constraintTop_toBottomOf="@id/tv_price"
             tools:text="+2.0%" />
