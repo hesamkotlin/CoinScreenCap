@@ -7,4 +7,13 @@
     <string name="action_close_drawer">closedrawer</string>
     <string name="home_key">Home</string>
     <string name="fav_key">Favorites</string>
+    <string name="description">%1$s value statistics</string>
+    <string name="percentage_sign">%1$s %%</string>
+    <string name="dollar_sign">%1$s $</string>
+    <string name="btc_price_text">%1$s BTC</string>
+    <string name="usd_price">Price to USD</string>
+    <string name="btc_price">Price to BTC</string>
+    <string name="rank">Rank</string>
+    <string name="vol_24">24h volume</string>
+    <string name="market_cap">Market cap</string>
 </resources>
