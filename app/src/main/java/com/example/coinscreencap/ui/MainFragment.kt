@@ -56,6 +56,7 @@ class MainFragment : Fragment() {
             adapter = coinAdapter
             layoutManager = LinearLayoutManager(requireContext())
             coinAdapter.setOnItemClickListener{ viewModel.navigateToDetail(it) }
+            coinAdapter.setOnFavClickedListener { viewModel.toggleFavorite(it) }
         }
     }
 

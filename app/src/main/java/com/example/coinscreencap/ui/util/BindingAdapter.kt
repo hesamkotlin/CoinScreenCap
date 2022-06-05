@@ -1,10 +1,16 @@
 package com.example.coinscreencap.ui.util
 
+import android.graphics.Insets.add
 import android.graphics.drawable.Drawable
 import android.util.Log
+import android.widget.ImageButton
 import android.widget.ImageView
 import android.widget.TextView
+import androidx.appcompat.app.AppCompatActivity
 import androidx.databinding.BindingAdapter
+import coil.ImageLoader
+import coil.decode.SvgDecoder
+import coil.request.ImageRequest
 import com.bumptech.glide.Glide
 import com.bumptech.glide.load.DataSource
 import com.bumptech.glide.load.engine.DiskCacheStrategy
@@ -24,7 +30,7 @@ fun loadIconToImageView(imageView: ImageView, url: String?) {
         .load(url)
         .apply(RequestOptions.diskCacheStrategyOf(DiskCacheStrategy.NONE))
         .override(Target.SIZE_ORIGINAL, Target.SIZE_ORIGINAL)
-        .listener(object :RequestListener<Drawable>{
+        .listener(object : RequestListener<Drawable> {
             override fun onLoadFailed(
                 e: GlideException?,
                 model: Any?,
@@ -50,6 +56,26 @@ fun loadIconToImageView(imageView: ImageView, url: String?) {
         .into(imageView)
 }
 
+@BindingAdapter("coinSvgIcon")
+fun loadSvgToImageView(imageView: ImageView, url: String?) {
+    val imageLoader = ImageLoader.Builder(imageView.context)
+        .componentRegistry { add(SvgDecoder(imageView.context)) }
+        .build()
+
+    val request = ImageRequest.Builder(imageView.context)
+        .crossfade(true)
+        .crossfade(500)
+//        .placeholder(R.drawable.placeholder)
+//        .error(R.drawable.error)
+        .data(url)
+        .target(imageView)
+
+        .build()
+
+    imageLoader.enqueue(request)
+
+}
+
 @BindingAdapter("coinDescription")
 fun loadSymbolText(textView: TextView, symbol: String?) {
     symbol ?: return
@@ -64,7 +90,6 @@ fun loadChangeTextColor(textView: TextView, change: Float?) {
         textView.setTextColor(textView.context.resources.getColor(R.color.negativeChange))
     } else
         textView.setTextColor(textView.context.resources.getColor(R.color.positiveChange))
-
 }
 
 @BindingAdapter("coinPercentageSign")
@@ -87,6 +112,15 @@ fun loadBtcSign(textView: TextView, btcPrice: String?) {
     val text = textView.context.getString(R.string.btc_price_text, btcPrice)
     textView.text = text
 }
+
+@BindingAdapter("bookMarkState")
+fun loadBookMarkSign(imageView: ImageView , isFavorite : Boolean){
+  when(isFavorite){
+      true  ->imageView.setImageResource(R.drawable.ic_favorites)
+      false  ->imageView.setImageResource(R.drawable.ic_bold_icon_bold_bookmark)
+  }
+}
+
 
 
 

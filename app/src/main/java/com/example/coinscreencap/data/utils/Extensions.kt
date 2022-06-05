@@ -19,6 +19,8 @@ fun Crypto.mapToCoinEntity(): CoinEntity {
         marketCap = marketCap,
         iconUrl = iconUrl,
         btcPrice = btcPrice,
+        isFavorites = false
+
     )
 }
 
@@ -35,7 +37,8 @@ fun CoinEntity.mapToCoin(): Coin {
         btcPrice = btcPrice.round("#.########"),
         color = color,
         iconUrl = iconUrl,
-        marketCap = marketCap
+        marketCap = marketCap,
+        isFavorites = false
     )
 }
 

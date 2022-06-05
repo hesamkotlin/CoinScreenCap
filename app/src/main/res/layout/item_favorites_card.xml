@@ -4,7 +4,6 @@
     xmlns:tools="http://schemas.android.com/tools">
 
     <data>
-
         <variable
             name="model"
             type="com.example.coinscreencap.shared.model.Coin" />
@@ -13,15 +12,14 @@
 
     <androidx.constraintlayout.widget.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="12dp">
+        android:layout_height="match_parent"
+        android:layout_marginTop="8dp">
 
         <ImageView
             android:id="@+id/iv_temp"
             android:layout_width="32dp"
             android:layout_height="32dp"
             android:layout_marginStart="22dp"
-            coinSvgIcon="@{model.iconUrl}"
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toTopOf="parent"
             tools:src="@drawable/ic_btc" />
@@ -49,18 +47,6 @@
             app:layout_constraintTop_toBottomOf="@+id/tv_label"
             tools:text="BTC" />
 
-        <ImageView
-            android:id="@+id/iv_bookmark"
-            bookMarkState="@{model.isFavorites}"
-            android:layout_width="wrap_content"
-            android:layout_height="wrap_content"
-            android:layout_marginEnd="20dp"
-            android:src="@drawable/ic_bold_icon_bold_bookmark"
-            app:layout_constraintBottom_toBottomOf="@id/iv_temp"
-            app:layout_constraintEnd_toEndOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            app:layout_constraintVertical_bias="0.0"
-            tools:src="@drawable/ic_bold_icon_bold_bookmark" />
 
         <TextView
             android:id="@+id/tv_price"
@@ -69,7 +55,7 @@
             android:layout_marginEnd="8dp"
             android:text="@{model.price}"
             android:textColor="@color/material_on_surface_emphasis_high_type"
-            app:layout_constraintEnd_toStartOf="@+id/iv_bookmark"
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toTopOf="@id/iv_temp"
             tools:text="$29000" />
 
@@ -78,9 +64,8 @@
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:textSize="12sp"
-            coinPercentageSign="@{model.change}"
-            coinPercentageChangeColor="@{model.change}"
-            app:layout_constraintEnd_toStartOf="@+id/iv_bookmark"
+
+            app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintTop_toBottomOf="@id/tv_price"
             tools:text="+2.0%" />
 
@@ -92,7 +77,6 @@
             app:layout_constraintEnd_toEndOf="@id/iv_bookmark"
             app:layout_constraintStart_toStartOf="@id/iv_temp"
             app:layout_constraintTop_toBottomOf="@+id/iv_temp" />
-
 
     </androidx.constraintlayout.widget.ConstraintLayout>
 </layout>

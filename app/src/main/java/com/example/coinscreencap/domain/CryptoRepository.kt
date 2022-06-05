@@ -43,4 +43,16 @@ class CryptoRepository @Inject constructor(
         return coinEntity.mapToCoin()
     }
 
+   suspend fun getFavorites(): List<Coin> {
+        return localDataSource.getFavorites().map { it.mapToCoin() }
+    }
+
+    suspend fun toggleFavorite(coinId: String) {
+        val coinEntity = localDataSource.getCoin(coinId)
+        when(coinEntity.isFavorites){
+            true -> localDataSource.deleteFromFavorite(coinId)
+            false -> localDataSource.addToFavorite(coinId)
+        }
+    }
+
 }

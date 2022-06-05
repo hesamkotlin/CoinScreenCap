@@ -11,5 +11,6 @@ data class Coin(
     val color:String?,
     val marketCap: String,
     val iconUrl:String,
-    val btcPrice:String
+    val btcPrice:String,
+    var isFavorites : Boolean = false
     )

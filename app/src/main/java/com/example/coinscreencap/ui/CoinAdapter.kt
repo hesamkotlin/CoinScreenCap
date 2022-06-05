@@ -1,7 +1,9 @@
 package com.example.coinscreencap.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
+import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
 import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
@@ -24,9 +26,14 @@ class CoinAdapter : PagingDataAdapter<Coin, CoinAdapter.CoinViewHolder>(
     }
 ) {
     private lateinit var mOnItemClicked: (String) -> Unit
+    private lateinit var mOnFavClicked: (String ) -> Unit
 
     fun setOnItemClickListener(onItemClicked: (String) -> Unit) {
         mOnItemClicked = onItemClicked
+    }
+
+    fun setOnFavClickedListener(onFavClickedListener:(String)->Unit){
+        mOnFavClicked = onFavClickedListener
     }
 
     inner class CoinViewHolder(
@@ -34,12 +41,22 @@ class CoinAdapter : PagingDataAdapter<Coin, CoinAdapter.CoinViewHolder>(
     ) : RecyclerView.ViewHolder(binding.root) {
         fun bind(coin: Coin) {
             binding.model = coin
+
+
         }
 
         init {
             itemView.setOnClickListener {
                 mOnItemClicked(getItem(absoluteAdapterPosition)!!.id)
             }
+            itemView.findViewById<View>(R.id.iv_bookmark).setOnClickListener{
+                mOnFavClicked(getItem(absoluteAdapterPosition)!!.id)
+                getItem(absoluteAdapterPosition)?.let {
+                    it.isFavorites = !it.isFavorites
+                }
+                notifyItemChanged(absoluteAdapterPosition)
+            }
+
         }
     }
 

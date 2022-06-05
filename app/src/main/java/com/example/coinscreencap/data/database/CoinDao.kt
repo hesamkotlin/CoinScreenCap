@@ -1,6 +1,7 @@
 package com.example.coinscreencap.data.database
 
 import androidx.room.*
+import kotlinx.coroutines.flow.Flow
 
 @Dao
 interface CoinDao {
@@ -21,5 +22,13 @@ interface CoinDao {
     @Query("SELECT * FROM local_coins WHERE id = :coinId")
     suspend fun getCoin(coinId: String): CoinEntity
 
+    @Query("SELECT * FROM local_coins WHERE isFavorites == 1 ORDER BY rank")
+     fun getFavorites(): List<CoinEntity>
+
+     @Query("UPDATE local_coins SET isFavorites = 1 WHERE id = :coinId")
+     fun addToFavorite(coinId: String)
+
+    @Query("UPDATE local_coins SET isFavorites = 0 WHERE id = :coinId")
+    fun deleteFromFavorite(coinId: String)
 
 }

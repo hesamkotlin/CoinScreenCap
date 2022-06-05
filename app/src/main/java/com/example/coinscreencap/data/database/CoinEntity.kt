@@ -17,4 +17,5 @@ data class CoinEntity(
     @ColumnInfo(name = "btcPrice") val btcPrice: String,
     @ColumnInfo(name = "marketCap") val marketCap: String,
     @ColumnInfo(name = "iconUrl") val iconUrl: String,
+    @ColumnInfo(name = "isFavorites") val isFavorites: Boolean,
 )
