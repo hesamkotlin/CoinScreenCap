@@ -11,24 +11,15 @@ interface CoinDao {
     @Update
     suspend fun update(coinEntity: CoinEntity)
 
-    @Query("SELECT * FROM local_coins")
-    suspend fun getAllCoins(): List<CoinEntity>
-
-    @Query("SELECT * FROM local_coins " +
-            "WHERE rank < (:pageNumber * :pageSize) AND rank > ((:pageNumber - 1) * :pageSize) " +
-            "ORDER BY rank")
-    suspend fun getCoins(pageNumber: Int, pageSize: Int): List<CoinEntity>
-
     @Query("SELECT * FROM local_coins WHERE id = :coinId")
-    suspend fun getCoin(coinId: String): CoinEntity
+    suspend fun getCoinEntity(coinId: String) : CoinEntity
 
-    @Query("SELECT * FROM local_coins WHERE isFavorites == 1 ORDER BY rank")
-     fun getFavorites(): List<CoinEntity>
+    @Transaction
+    @Query("SELECT * FROM local_coins ORDER BY rank")
+    fun getCoinAndIsFavorites() : Flow<List<CoinAndFavorite>>
 
-     @Query("UPDATE local_coins SET isFavorites = 1 WHERE id = :coinId")
-     fun addToFavorite(coinId: String)
-
-    @Query("UPDATE local_coins SET isFavorites = 0 WHERE id = :coinId")
-    fun deleteFromFavorite(coinId: String)
+    @Transaction
+    @Query("SELECT * FROM local_coins WHERE id = :coinId")
+    suspend fun getCoinAndIsFavorite(coinId: String) : CoinAndFavorite
 
 }

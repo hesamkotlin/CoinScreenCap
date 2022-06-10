@@ -9,6 +9,7 @@ import com.example.coinscreencap.domain.CryptoRepository
 import com.example.coinscreencap.shared.model.Coin
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -18,13 +19,16 @@ class FavoriteViewModel @Inject constructor(
     private val repository: CryptoRepository
 ) : ViewModel() {
 
-    private val mCoin = MutableLiveData<List<Coin>>()
-    val coin: LiveData<List<Coin>> = mCoin
+    private val mCoin = MutableLiveData <Flow<List<Coin>>>()
+    val coin: LiveData<Flow<List<Coin>>> = mCoin
 
-    fun getFavorites() {
+    fun getFavorites() : Flow<List<Coin>>{
+       return repository.getFavorites()
+    }
+    fun toggleFavorite(coinID: String) {
         viewModelScope.launch(Dispatchers.IO) {
-            mCoin.postValue(repository.getFavorites())
+            val result = repository.toggleFavorite(coinID)
+            Log.d("result", result.toString())
         }
     }
-
 }

@@ -3,21 +3,19 @@ package com.example.coinscreencap.ui
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.ImageView
 import androidx.databinding.DataBindingUtil
-import androidx.paging.PagingDataAdapter
 import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.example.coinscreencap.R
 import com.example.coinscreencap.databinding.ItemLinearCardBinding
 import com.example.coinscreencap.shared.model.Coin
 
-class CoinAdapter : PagingDataAdapter<Coin, CoinAdapter.CoinViewHolder>(
+class CoinAdapter : androidx.recyclerview.widget.ListAdapter<Coin, CoinAdapter.CoinViewHolder>(
 
 
     object : DiffUtil.ItemCallback<Coin>() {
         override fun areItemsTheSame(oldItem: Coin, newItem: Coin): Boolean {
-            return oldItem.id == newItem.id
+            return oldItem.rank == newItem.rank
         }
 
         override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {
@@ -49,12 +47,9 @@ class CoinAdapter : PagingDataAdapter<Coin, CoinAdapter.CoinViewHolder>(
             itemView.setOnClickListener {
                 mOnItemClicked(getItem(absoluteAdapterPosition)!!.id)
             }
-            itemView.findViewById<View>(R.id.iv_bookmark).setOnClickListener{
+            itemView.findViewById<View>(R.id.iv_favorites).setOnClickListener{
                 mOnFavClicked(getItem(absoluteAdapterPosition)!!.id)
-                getItem(absoluteAdapterPosition)?.let {
-                    it.isFavorites = !it.isFavorites
-                }
-                notifyItemChanged(absoluteAdapterPosition)
+
             }
 
         }

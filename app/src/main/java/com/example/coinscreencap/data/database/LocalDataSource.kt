@@ -1,29 +1,32 @@
 package com.example.coinscreencap.data.database
 
+import androidx.room.Query
+import androidx.room.Transaction
 import kotlinx.coroutines.flow.Flow
 import javax.inject.Inject
 
 class LocalDataSource @Inject constructor(
-    private val coinDao: CoinDao
+    private val coinDao: CoinDao,
+    private val favoritesDao: FavoritesDao
 
 ) {
     suspend fun insertCoins(coinEntities: List<CoinEntity>) {
         coinDao.insert(coinEntities)
     }
 
+    suspend fun insertFavorites(favoriteEntities: List<FavoritesEntity>) {
+        favoritesDao.insert(favoriteEntities)
+    }
+
     suspend fun update(coinEntity: CoinEntity) = coinDao.update(coinEntity)
 
-    suspend fun getAllCoins() = coinDao.getAllCoins()
+    fun getCoinAndIsFavorites() = coinDao.getCoinAndIsFavorites()
 
-    suspend fun getCoins(pageNumber: Int, pageSize: Int): List<CoinEntity> =
-        coinDao.getCoins(pageNumber, pageSize)
+    suspend fun getCoinAndIsFavorite(coinId: String) = coinDao.getCoinAndIsFavorite(coinId)
 
-    suspend fun getCoin(coinId: String): CoinEntity = coinDao.getCoin(coinId)
+    fun addToFavorite(coinId: String) = favoritesDao.addToFavorite(coinId)
 
-    suspend fun getFavorites() = coinDao.getFavorites()
+    fun deleteFromFavorite(coinId: String) = favoritesDao.deleteFromFavorite(coinId)
 
-    suspend fun addToFavorite(coinId: String)  = coinDao.addToFavorite(coinId)
-
-    suspend fun deleteFromFavorite(coinId: String) = coinDao.deleteFromFavorite(coinId)
-
+    suspend fun getCoinEntity(coinId: String) = coinDao.getCoinEntity(coinId)
 }

@@ -1,10 +1,7 @@
 package com.example.coinscreencap.domain
 
 import android.util.Log
-import androidx.paging.Pager
-import androidx.paging.PagingConfig
-import androidx.paging.PagingData
-import com.example.coinscreencap.data.CryptoPagingSource
+import com.example.coinscreencap.data.database.FavoritesEntity
 import com.example.coinscreencap.data.remote.NetworkDataSource
 import com.example.coinscreencap.data.remote.Resource
 import com.example.coinscreencap.data.database.LocalDataSource
@@ -12,6 +9,8 @@ import com.example.coinscreencap.data.utils.mapToCoin
 import com.example.coinscreencap.data.utils.mapToCoinEntity
 import com.example.coinscreencap.shared.model.Coin
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.filter
+import kotlinx.coroutines.flow.map
 import javax.inject.Inject
 
 class CryptoRepository @Inject constructor(
@@ -24,35 +23,36 @@ class CryptoRepository @Inject constructor(
         if (response is Resource.Success) {
             val coinEntities = response.data.map { it.mapToCoinEntity() }
             localDataSource.insertCoins(coinEntities)
-            Resource.Success(coinEntities.map { it.mapToCoin() })
+            localDataSource.insertFavorites(coinEntities.map { FavoritesEntity(
+                coinOwnerId = it.id,
+                isFavorites = false
+            ) })
         }
     }
 
-    suspend fun getCoins(): Flow<PagingData<Coin>>{
-        val maxCount = localDataSource.getAllCoins().count()
-        return Pager(
-            config = PagingConfig(pageSize = 10),
-            pagingSourceFactory = {
-                CryptoPagingSource(localDataSource, maxCount)
-            }
-        ).flow
+    fun getCoins(): Flow<List<Coin>> {
+        return localDataSource.getCoinAndIsFavorites().map { it -> it.map { it.mapToCoin() } }
     }
 
     suspend fun getCoin(coinId: String): Coin {
-        val coinEntity = localDataSource.getCoin(coinId)
+        val coinEntity = localDataSource.getCoinAndIsFavorite(coinId)
         return coinEntity.mapToCoin()
     }
 
-   suspend fun getFavorites(): List<Coin> {
-        return localDataSource.getFavorites().map { it.mapToCoin() }
+    fun getFavorites(): Flow<List<Coin>> {
+        return localDataSource.getCoinAndIsFavorites()
+            .map { it.filter { coinAndFavorite -> coinAndFavorite.favoritesEntity.isFavorites } }
+            .map { it -> it.map { it.mapToCoin() } }
     }
 
     suspend fun toggleFavorite(coinId: String) {
-        val coinEntity = localDataSource.getCoin(coinId)
-        when(coinEntity.isFavorites){
+        val coinAndFavorite = localDataSource.getCoinAndIsFavorite(coinId)
+        when (coinAndFavorite.favoritesEntity.isFavorites) {
             true -> localDataSource.deleteFromFavorite(coinId)
             false -> localDataSource.addToFavorite(coinId)
         }
+        val coinEntity = localDataSource.getCoinEntity(coinId)
+        localDataSource.insertCoins(listOf(coinEntity))
     }
 
 }

@@ -1,6 +1,7 @@
 package com.example.coinscreencap.ui
 
 import android.view.LayoutInflater
+import android.view.View
 import android.view.ViewGroup
 import androidx.databinding.DataBindingUtil
 import androidx.recyclerview.widget.DiffUtil
@@ -19,17 +20,25 @@ class FavoritesAdapter :
             override fun areContentsTheSame(oldItem: Coin, newItem: Coin): Boolean {
                 return oldItem.hashCode() == newItem.hashCode()
             }
-
         }
-
     ) {
+    private lateinit var mOnFavClicked: (String) -> Unit
+
+    fun setOnFavClickedListener(onFavClickedListener: (String) -> Unit) {
+        mOnFavClicked = onFavClickedListener
+    }
 
     inner class FavViewHolder(
         private val binding: ItemFavoritesCardBinding
     ) : RecyclerView.ViewHolder(binding.root) {
-
         fun bind(coin: Coin) {
             binding.model = coin
+        }
+
+        init {
+            itemView.findViewById<View>(R.id.iv_favorites).setOnClickListener {
+                mOnFavClicked(getItem(absoluteAdapterPosition)!!.id)
+            }
         }
     }
 

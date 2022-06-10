@@ -26,4 +26,7 @@ object DatabaseModule {
     @Provides
     fun provideCoinDao(coinsDatabase: CoinsDatabase) = coinsDatabase.coinDao
 
+    @Provides
+    fun provideFavoriteDao(coinsDatabase: CoinsDatabase) = coinsDatabase.favoriteDao
+
 }

@@ -116,7 +116,7 @@ fun loadBtcSign(textView: TextView, btcPrice: String?) {
 @BindingAdapter("bookMarkState")
 fun loadBookMarkSign(imageView: ImageView , isFavorite : Boolean){
   when(isFavorite){
-      true  ->imageView.setImageResource(R.drawable.ic_favorites)
+      true  ->imageView.setImageResource(R.drawable.ic_bold_icon)
       false  ->imageView.setImageResource(R.drawable.ic_bold_icon_bold_bookmark)
   }
 }

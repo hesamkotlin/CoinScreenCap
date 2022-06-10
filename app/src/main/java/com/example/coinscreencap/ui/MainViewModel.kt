@@ -7,6 +7,7 @@ import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import androidx.paging.PagingData
 import androidx.paging.cachedIn
+import com.example.coinscreencap.data.database.CoinEntity
 import com.example.coinscreencap.data.utils.mapToCoin
 import com.example.coinscreencap.domain.CryptoRepository
 import com.example.coinscreencap.shared.model.Coin
@@ -14,6 +15,8 @@ import com.example.coinscreencap.ui.util.LiveEvent
 import dagger.hilt.android.lifecycle.HiltViewModel
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
+import kotlinx.coroutines.flow.collect
+import kotlinx.coroutines.flow.map
 import kotlinx.coroutines.launch
 import javax.inject.Inject
 
@@ -27,7 +30,6 @@ class MainViewModel @Inject constructor(
     val navigateToDetail: LiveData<String> = mNavigateToDetail
 
 
-
     fun updateCryptos() {
         viewModelScope.launch(Dispatchers.IO) {
             val coinResponse = repository.updateCryptos()
@@ -35,8 +37,8 @@ class MainViewModel @Inject constructor(
         }
     }
 
-    suspend fun getCoins(): Flow<PagingData<Coin>> {
-        return repository.getCoins().cachedIn(viewModelScope)
+    fun getCoins(): Flow<List<Coin>> {
+        return repository.getCoins()
     }
 
     fun navigateToDetail(coinID: String) {
@@ -44,12 +46,10 @@ class MainViewModel @Inject constructor(
     }
 
 
-    fun toggleFavorite(coinID: String)  {
+    fun toggleFavorite(coinID: String) {
         viewModelScope.launch(Dispatchers.IO) {
             val result = repository.toggleFavorite(coinID)
-            Log.d("result" , result.toString())
-
-
+            Log.d("result", result.toString())
         }
     }
 }

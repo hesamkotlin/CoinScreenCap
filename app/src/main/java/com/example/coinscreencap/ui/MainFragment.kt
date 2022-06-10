@@ -12,6 +12,7 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.coinscreencap.databinding.FragmentMainBinding
 import com.example.coinscreencap.shared.model.observe
 import dagger.hilt.android.AndroidEntryPoint
+import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.flow.collectLatest
 import kotlinx.coroutines.launch
 
@@ -44,11 +45,17 @@ class MainFragment : Fragment() {
         viewModel.updateCryptos()
         initRecyclerView()
         observe(viewModel.navigateToDetail) { navigateToDetail(it) }
-        viewLifecycleOwner.lifecycleScope.launch {
-            viewModel.getCoins().collectLatest {
-                coinAdapter.submitData(it)
+
+    }
+
+    override fun onResume() {
+        super.onResume()
+        viewLifecycleOwner.lifecycleScope.launchWhenResumed {
+            viewModel.getCoins().collect {
+                coinAdapter.submitList(it)
             }
         }
+
     }
 
     private fun initRecyclerView() {
