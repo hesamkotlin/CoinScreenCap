@@ -9,6 +9,7 @@ import androidx.fragment.app.viewModels
 import androidx.lifecycle.lifecycleScope
 import androidx.navigation.fragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.example.coinscreencap.R
 import com.example.coinscreencap.databinding.FragmentMainBinding
 import com.example.coinscreencap.shared.model.observe
 import dagger.hilt.android.AndroidEntryPoint
@@ -27,7 +28,7 @@ class MainFragment : Fragment() {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
+        navigateToSplashFragmentifNeeded()
     }
 
     override fun onCreateView(
@@ -70,6 +71,12 @@ class MainFragment : Fragment() {
     private fun navigateToDetail(coinId :String) {
         val navDirection = ContainerFragmentDirections.navigateToDetail(coinId)
         findNavController().navigate(navDirection)
+    }
+    private fun navigateToSplashFragmentifNeeded(){
+        if (!viewModel.splashSeen){
+            viewModel.splashSeen = true
+            findNavController().navigate(R.id.splashFragment)
+        }
     }
 }
 

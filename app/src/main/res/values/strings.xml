@@ -16,4 +16,6 @@
     <string name="rank">Rank</string>
     <string name="vol_24">24h volume</string>
     <string name="market_cap">Market cap</string>
+    <string name="coinScreenCap">Coin Screen Cap</string>
+    <string name="me">written by Hesam</string>
 </resources>

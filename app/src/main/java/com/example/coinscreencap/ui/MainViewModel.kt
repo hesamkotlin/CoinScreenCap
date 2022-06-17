@@ -29,6 +29,8 @@ class MainViewModel @Inject constructor(
     private val mNavigateToDetail = LiveEvent<String>()
     val navigateToDetail: LiveData<String> = mNavigateToDetail
 
+    var splashSeen = false
+
 
     fun updateCryptos() {
         viewModelScope.launch(Dispatchers.IO) {

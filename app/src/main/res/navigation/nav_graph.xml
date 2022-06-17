@@ -15,19 +15,27 @@
         android:id="@+id/container"
         android:name="com.example.coinscreencap.ui.ContainerFragment"
         android:label="fragment_container"
-        tools:layout="@layout/fragment_container" >
+        tools:layout="@layout/fragment_container">
         <action
             android:id="@+id/navigate_to_detail"
-            app:destination="@id/detailFragment"
-            />
+            app:destination="@id/detailFragment" />
+
+        <action
+            android:id="@+id/action_container_to_splashFragment"
+            app:destination="@id/splashFragment" />
+
     </fragment>
     <fragment
         android:id="@+id/detailFragment"
         android:name="com.example.coinscreencap.ui.DetailFragment"
         android:label="fragment_detail"
-        tools:layout="@layout/fragment_detail" >
+        tools:layout="@layout/fragment_detail">
         <argument
             android:name="coinId"
             app:argType="string" />
     </fragment>
+    <fragment
+        android:id="@+id/splashFragment"
+        android:name="com.example.coinscreencap.ui.SplashFragment"
+        android:label="SplashFragment" />
 </navigation>

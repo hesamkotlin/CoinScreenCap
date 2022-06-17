@@ -10,4 +10,5 @@
     <color name="divider">#14212121</color>
     <color name="positiveChange">#1cc8c8</color>
     <color name="negativeChange">#eb5e2c</color>
+    <color name="splash">#4557aa</color>
 </resources>
